@@ -197,14 +197,15 @@ func (sp *SAMLServiceProvider) Validate(response *types.Response) error {
 		if subjectConfirmationData == nil {
 			return ErrMissingElement{Tag: SubjectConfirmationDataTag}
 		}
-
-		if subjectConfirmationData.Recipient != sp.AssertionConsumerServiceURL {
-			return ErrInvalidValue{
-				Key:      RecipientAttr,
-				Expected: sp.AssertionConsumerServiceURL,
-				Actual:   subjectConfirmationData.Recipient,
-			}
-		}
+		
+		// NOTE: Removed for TDA SAML assertion jankyshit
+		// if subjectConfirmationData.Recipient != sp.AssertionConsumerServiceURL {
+		// 	return ErrInvalidValue{
+		//		Key:      RecipientAttr,
+		//		Expected: sp.AssertionConsumerServiceURL,
+		//		Actual:   subjectConfirmationData.Recipient,
+		//	}
+		// }
 
 		if subjectConfirmationData.NotOnOrAfter == "" {
 			return ErrMissingElement{Tag: SubjectConfirmationDataTag, Attribute: NotOnOrAfterAttr}
